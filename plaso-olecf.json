@@ -1,0 +1,27 @@
+{
+    "description": "pull out paths from olecf files",
+    "processors": [
+      {
+        "rename": {
+          "if": "ctx.parser=~/olecf/ && ctx.source_long=='Windows Shortcut' && ctx.local_path!=null",
+          "target_field": "path",
+          "field": "local_path",
+          "ignore_failure": true
+        }
+      }, {
+        "rename": {
+          "if": "ctx.parser=~/olecf/ && ctx.source_long=='Windows Shortcut' && ctx.network_path!=null",
+          "target_field": "path",
+          "field": "network_path",
+          "ignore_failure": true
+        }
+      }, {
+        "rename": {
+          "if": "ctx.parser=~/olecf/ && ctx.source_long=='File entry shell item' && ctx.shell_item_path!=null",
+          "target_field": "path",
+          "field": "shell_item_path",
+          "ignore_failure": true
+        }
+      }
+    ]
+  }

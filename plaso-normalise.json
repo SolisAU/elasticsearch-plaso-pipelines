@@ -1,0 +1,23 @@
+{
+  "description": "plaso post-processing",
+  "processors": [
+    /*{
+      "gsub": {
+        "field": "username",
+        "if": "ctx.username != null",
+        "pattern": "(.*\\\\)?([^@]+)(@.+)?",
+        "replacement": "$2"
+      }
+    }, {
+      "lowercase": {
+        "field": "username",
+        "ignore_missing": true
+      }
+    }, */{
+      "lowercase": {
+        "field": "hostname",
+        "ignore_missing": true
+      }
+    }
+  ]
+}

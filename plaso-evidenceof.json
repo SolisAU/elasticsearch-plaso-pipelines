@@ -1,0 +1,48 @@
+{
+  "description": "plaso add evidence of tags",
+  "processors": [
+      {
+        "set": {
+          "field": "evidence_of",
+          "value": "ProgramExecution",
+          "if": "ctx.parser=~/(appcompatcache|prefetch|userassist)/",
+          "ignore_failure": true
+        }
+      }, {
+        "set": {
+          "field": "evidence_of",
+          "value": "FileFolderOpening",
+          "if": "ctx.parser=~/(mrulistex_shell_item_list|mrulistex_string_and_shell_item|mrulistex_string|microsoft_office_mru|bagmru)/",
+          "ignore_failure": true
+        }
+      }, {
+        "set": {
+          "field": "evidence_of",
+          "value": "FileFolderOpening",
+          "if": "ctx.parser=~/(automatic_destinations)/ && ctx.source_long!='System'",
+          "ignore_failure": true
+        }
+      }, {
+        "set": {
+          "field": "evidence_of",
+          "value": "AccountUsage",
+          "if": "ctx.parser=='winevtx' && ctx.source_name=='Microsoft-Windows-TerminalServices-LocalSessionManager' && ctx.event_id=~/(20|21|22|23|24|39|40|9009)/",
+          "ignore_failure": true
+        }
+      }, {
+        "set": {
+          "field": "evidence_of",
+          "value": "AccountUsage",
+          "if": "ctx.parser=='winevtx' && ctx.source_name=='Microsoft-Windows-Security-Auditing' && ctx.event_id=~/(4624|4634|4647|4778|4779)/",
+          "ignore_failure": true
+        }
+      }, {
+        "set": {
+          "field": "evidence_of",
+          "value": "AccountUsage",
+          "if": "ctx.parser=='winevtx' && ctx.source_name=='Service Control Manager' && ctx.event_id=~/(7034|7035|7036|7040)/",
+          "ignore_failure": true
+        }
+      }
+  ]
+}

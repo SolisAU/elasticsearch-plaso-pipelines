@@ -1,0 +1,38 @@
+{
+  "description" : "enrich winreg",
+  "processors" : [
+    {
+      "rename" : {
+        "if" : "ctx.parser=~/winreg/ && ctx.parser=~/mrulistex_shell_item_list/ && ctx.shell_item_path!=null",
+        "target_field" : "path",
+        "field" : "shell_item_path",
+        "ignore_failure" : true
+      }
+    },
+    {
+      "rename" : {
+        "if" : "ctx.parser=~/winreg/ && ctx.parser=~/mrulistex_string_and_shell_item_list/ && ctx.shell_item_path!=null",
+        "target_field" : "path",
+        "field" : "shell_item_path",
+        "ignore_failure" : true
+      }
+    },
+    {
+      "rename" : {
+        "if" : "ctx.parser=~/winreg/ && ctx.parser=~/shell_items/ && ctx.shell_item_path!=null",
+        "target_field" : "path",
+        "field" : "shell_item_path",
+        "ignore_failure" : true
+      }
+    },
+    {
+      // unconfirmed
+      "rename" : {
+        "field" : "value_name",
+        "target_field" : "path",
+        "if" : "ctx.parser=~/winreg/ && ctx.source_long=='Registry Key - UserAssist' && ctx.value_name!=null",
+        "ignore_failure" : true
+      }
+    }
+  ]
+}

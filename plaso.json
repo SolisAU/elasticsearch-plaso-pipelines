@@ -1,0 +1,47 @@
+{
+  "description": "plaso pipelines",
+  "processors": [
+   {
+      "pipeline": {
+        "name": "iis-normalise",
+        "ignore_failure": true
+      }
+    }, {
+      "pipeline": {
+        "if": "ctx.containsKey('xml_string')",
+        "name": "plaso-winevt",
+        "ignore_failure": true
+      }
+    }, {
+      "pipeline": {
+        "name": "plaso-olecf",
+        "ignore_failure": true
+      }
+    }, {
+      "pipeline": {
+        "name": "plaso-prefetch",
+        "ignore_failure": true
+      }
+    }, {
+      "pipeline": {
+        "name": "plaso-winreg",
+        "ignore_failure": true
+      }
+    }, {
+      "pipeline": {
+        "name": "plaso-geoip",
+        "ignore_failure": true
+      }
+    }, {
+      "pipeline": {
+        "name": "plaso-normalise",
+        "ignore_failure": true
+      }
+    }, {
+      "pipeline": {
+        "name": "plaso-evidenceof",
+        "ignore_failure": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "description": "iis pre-processing",
+  "processors": [
+    {
+      "date": {
+        "field": "iis_timestamp",
+        "formats" : ["yyyy-MM-dd HH:mm:ss"]
+      }
+    }, {
+      "rename": {
+        "field": "source-ip",
+        "target_field" : "ip_address",
+        "ignore_missing": true
+      }
+    }, {
+      "rename": {
+        "field": "cs-method",
+        "target_field" : "method",
+        "ignore_missing": true
+      }
+    }, {
+      "rename": {
+        "field": "cs-uri-stem",
+        "target_field" : "uri",
+        "ignore_missing": true
+      }
+    }, {
+      "rename": {
+        "field": "cs-uri-query",
+        "target_field" : "uri_query",
+        "ignore_missing": true
+      }
+    }, {
+      "rename": {
+        "field": "s-port",
+        "target_field" : "port",
+        "ignore_missing": true
+      }
+    }, {
+      "rename": {
+        "field": "cs-username",
+        "target_field" : "username",
+        "ignore_missing": true
+      }
+    }, {
+      "rename": {
+        "field": "c-ip",
+        "target_field" : "c_ip",
+        "ignore_missing": true
+      }
+    }, {
+      "rename": {
+        "field": "cs(_user-_agent)",
+        "target_field" : "user_agent",
+        "ignore_missing": true
+      }
+    }, {
+      "rename": {
+        "field": "cs(_cookie)",
+        "target_field" : "cookie",
+        "ignore_missing": true
+      }
+    }, {
+      "rename": {
+        "field": "cs(_referer)",
+        "target_field" : "referer",
+        "ignore_missing": true
+      }
+    }, {
+      "rename": {
+        "field": "sc-status",
+        "target_field" : "status",
+        "ignore_missing": true
+      }
+    }, {
+      "rename": {
+        "field": "sc-substatus",
+        "target_field" : "substatus",
+        "ignore_missing": true
+      }
+    }, {
+      "rename": {
+        "field": "sc-win32-status",
+        "target_field" : "win32_status",
+        "ignore_missing": true
+      }
+    }, {
+      "rename": {
+        "field": "time-taken",
+        "target_field" : "time_taken",
+        "ignore_missing": true
+      }
+    }, {
+      "rename": {
+        "field": "s-ip",
+        "target_field" : "s_ip_address",
+        "ignore_missing": true
+      }
+    }, {
+      "rename": {
+        "field": "c-ip",
+        "target_field" : "c_ip_address",
+        "ignore_missing": true
+      }
+    }
+  ]
+}
