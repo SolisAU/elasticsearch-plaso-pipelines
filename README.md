@@ -22,7 +22,7 @@ One major PITA when performing Windows forensics is that a lot of really great d
 
 ### Normalise Field Names ###
 
-`prefetch`, `olecf` and `winreg` have a number of artefacts that use different field names. If I'm trying to look at a bunch of artefacts that show File and Folder Opening, and I want to keep my columns nice and tidy so I can export the results to CSV and add to my report, I don't want to see the "path" (of the file or folder) in 4 different fields. ie: prefetch: `path_hints`; olecf: `local_path`, `network_path` and `shell_item_path`; winreg: `shell_item_path`, `value_name`.
+`prefetch`, `olecf` and `winreg` have a number of artefacts that use different field names. If I'm trying to look at a bunch of artefacts that show File and Folder Opening, and I want to keep my columns nice and tidy so I can export the results to CSV and add to my report, I don't want to see the `path` (of the file or folder) in 4 different fields. ie: prefetch: `path_hints`; olecf: `local_path`, `network_path` and `shell_item_path`; winreg: `shell_item_path`, `value_name`.
 
 ### Enrich Data ###
 
