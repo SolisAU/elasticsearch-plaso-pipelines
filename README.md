@@ -28,7 +28,11 @@ One major PITA when performing Windows forensics is that a lot of really great d
 
 Once we've pulled out additional fields and normalised the field names, we can start thinking about how to enrich the data with additional intelligence that helps us quickly exclude and include items that we know to be good and know to be bad. 
 
+#### IP Address Enrichment ####
 So far we are only performing GeoIP lookup on IP Address, then using a mashed together list of Tor Exit Nodes and VPN Servers to help identify IP addresses, but more could be added here with file hashes and file names as well.
+
+#### Evidence Of Enrichment ####
+This is _really_ basic, but we've added an `evidence_of` field, which can be used to create a filter (ie: `evidence_of: exists`) so you can filter down on artefacts that represent that type of activity based on the SANS poster of the same name. Thus far we've added in `AccountUsage` and `FileAndFolderOpening`, although the latter does overlap some artefacts that also represent `ApplicationUsage`, but we felt that File and Folder was probably better to reference. We'll look at ways to add more.
 
 ## Installation ##
 
