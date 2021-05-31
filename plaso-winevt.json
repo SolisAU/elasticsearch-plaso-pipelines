@@ -81,12 +81,20 @@
     },  {
       "gsub": {
         "field": "xml",
+        "target_field": "image_path",
+        "if": "ctx.xml=~/ImagePath/",
+        "pattern": ".*<(Data.Name)=\"(ImagePath)\">([^<]*)<.(Data).*",
+        "replacement": "$3"
+      }
+    },{
+      "gsub": {
+        "field": "xml",
         "target_field": "logon_process_name",
         "if": "ctx.xml=~/LogonProcessName/",
         "pattern": ".*<(Data.Name)=\"(LogonProcessName)\">([^<]*)<.(Data).*",
         "replacement": "$3"
       }
-    },  {
+    }, {
       "gsub": {
         "field": "xml",
         "target_field": "process_name",
