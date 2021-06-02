@@ -53,7 +53,7 @@
         "field": "xml",
         "target_field": "target_username",
         "if": "ctx.xml=~/TargetUserName/",
-        "pattern": ".*<(Data.Name)=\"(TargetUserName)\">([^<]*)<.(Data).*",
+        "pattern": ".*<(Data.Name)=\"(TargetUserName)\">([^<]*)<.(Data)?(.|\\W)*",
         "replacement": "$3"
       }
     },  {
@@ -61,7 +61,7 @@
         "field": "xml",
         "target_field": "subject_username",
         "if": "ctx.xml=~/SubjectUserName/",
-        "pattern": ".*<(Data.Name)=\"(SubjectUserName)\">([^<]*)<.(Data).*",
+        "pattern": ".*<(Data.Name)=\"(SubjectUserName)\">([^<]*)<.(Data)?(.|\\W)*",
         "replacement": "$3"
       }
     },  /*{
