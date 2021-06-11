@@ -60,7 +60,7 @@
         "if": "ctx.ip_address =~ /[\\d]+\\.[\\d]+\\.[\\d]+\\.[\\d]+/"
       }
     }, {
-    }, {
+    },/* {
       "geoip": {
         "field": "ip_address",
         "database_file": "Anonymous.mmdb",
@@ -68,7 +68,7 @@
         "properties": ["country_iso_code"],
         "if": "ctx.ip_address =~ /[\\d]+\\.[\\d]+\\.[\\d]+\\.[\\d]+/"
       }
-    }, /* {
+    },  {
       "rename": {
         "field": "anonymous.country_iso_code", "target_field": "relay", "ignore_missing": true
       }
