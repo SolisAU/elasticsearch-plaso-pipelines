@@ -53,7 +53,7 @@
         "field": "xml",
         "target_field": "target_username",
         "if": "ctx.xml=~/TargetUserName/",
-        "pattern": ".*<(Data.Name)=\"(TargetUserName)\">([^<]*)<.(Data).*",
+        "pattern": ".*<(Data.Name)=\"(TargetUserName)\">([^<]*)<.(Data)?(.|\\W)*",
         "replacement": "$3"
       }
     },  {
@@ -61,7 +61,7 @@
         "field": "xml",
         "target_field": "subject_username",
         "if": "ctx.xml=~/SubjectUserName/",
-        "pattern": ".*<(Data.Name)=\"(SubjectUserName)\">([^<]*)<.(Data).*",
+        "pattern": ".*<(Data.Name)=\"(SubjectUserName)\">([^<]*)<.(Data)?(.|\\W)*",
         "replacement": "$3"
       }
     },  /*{
@@ -81,12 +81,76 @@
     },  {
       "gsub": {
         "field": "xml",
+        "target_field": "svc_img_path",
+        "if": "ctx.source_name=='Service Control Manager' && ctx.event_id=='7045'",
+        "pattern": ".*<(Data.Name)=\"(ImagePath)\">([^<]*)<.(Data).*",
+        "replacement": "$3"
+      }
+    },{
+      "gsub": {
+        "field": "xml",
+        "target_field": "svc_name",
+        "if": "ctx.source_name=='Service Control Manager' && ctx.event_id=='7045'",
+        "pattern": ".*<(Data.Name)=\"(ServiceName)\">([^<]*)<.(Data).*",
+        "replacement": "$3"
+      }
+    },{
+      "gsub": {
+        "field": "xml",
+        "target_field": "parent_procname",
+        "if": "ctx.source_name=='Microsoft-Windows-Security-Auditing' && ctx.event_id=='4688'",
+        "pattern": ".*<(Data.Name)=\"(ParentProcessName)\">([^<]*)<.(Data).*",
+        "replacement": "$3"
+      }
+    },{
+      "gsub": {
+        "field": "xml",
+        "target_field": "child_procname",
+        "if": "ctx.source_name=='Microsoft-Windows-Security-Auditing' && ctx.event_id=='4688'",
+        "pattern": ".*<(Data.Name)=\"(NewProcessName)\">([^<]*)<.(Data).*",
+        "replacement": "$3"
+      }
+    },{
+      "gsub": {
+        "field": "xml",
+        "target_field": "proc_cmdline",
+        "if": "ctx.source_name=='Microsoft-Windows-Security-Auditing' && ctx.event_id=='4688'",
+        "pattern": ".*<(Data.Name)=\"(CommandLine)\">([^<]*)<.(Data).*",
+        "replacement": "$3"
+      }
+    },{
+      "gsub": {
+        "field": "xml",
+        "target_field": "svc_filename",
+        "if": "ctx.source_name=='Microsoft-Windows-Security-Auditing' && ctx.event_id=='4697'",
+        "pattern": ".*<(Data.Name)=\"(ServiceFileName)\">([^<]*)<.(Data).*",
+        "replacement": "$3"
+      }
+    },{
+      "gsub": {
+        "field": "xml",
+        "target_field": "schtask_name",
+        "if": "ctx.source_name=='Microsoft-Windows-Security-Auditing' && (ctx.event_id=='4698' || ctx.event_id=='4699' || ctx.event_id=='4702')",
+        "pattern": ".*<(Data.Name)=\"(TaskName)\">([^<]*)<.(Data).*",
+        "replacement": "$3"
+      }
+    },{
+      "gsub": {
+        "field": "xml",
+        "target_field": "schtask_cmd",
+        "if": "ctx.source_name=='Microsoft-Windows-Security-Auditing' && (ctx.event_id=='4698' || ctx.event_id=='4699' || ctx.event_id=='4702')",
+        "pattern": ".*<(Command)>([^<]*)<\/(Command).*",
+        "replacement": "$2"
+      }
+    },{
+      "gsub": {
+        "field": "xml",
         "target_field": "logon_process_name",
         "if": "ctx.xml=~/LogonProcessName/",
         "pattern": ".*<(Data.Name)=\"(LogonProcessName)\">([^<]*)<.(Data).*",
         "replacement": "$3"
       }
-    },  {
+    }, {
       "gsub": {
         "field": "xml",
         "target_field": "process_name",
