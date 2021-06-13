@@ -65,4 +65,4 @@ I use Cerebro to edit this, then all indexes I push from Plaso (via psort.py) ar
 
 Currently `plaso-geoip.json` references a customised mmdb (MaxMind DataBase) file called `Anonymous.mmdb`. This file needs to be created and stored in /etc/elasticsearch/ingest-geo/ on every node of your ElasticSearch cluster. I am yet to document how this all comes together and I would recommend commenting this section OUT of plaso-geoip.json so that your system doesn't break trying to look for a file that doesn't exist.
 
-This has been commented out in the most recent push. Thanks to @blueteamops :)
+This has been commented out in the most recent push. Thanks to @blueteam0ps :)
