@@ -1,4 +1,4 @@
-ES_SERVER := http://localhost:9200
+ES_SERVER := http://10.80.121.239:9200
 
 all: install test
 
@@ -27,4 +27,5 @@ build-mmdb:
 	python3 build_mmdb.py
 
 install-mmdb:
-	sudo cp Anonymous.mmdb /etc/elasticsearch/ingest-geo/.
+	sudo mkdir /etc/elasticsearch/ingest-geoip
+	sudo cp Anonymous.mmdb /etc/elasticsearch/ingest-geoip/.

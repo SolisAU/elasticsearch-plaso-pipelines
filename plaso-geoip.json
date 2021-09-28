@@ -60,12 +60,13 @@
         "if": "ctx.ip_address =~ /[\\d]+\\.[\\d]+\\.[\\d]+\\.[\\d]+/"
       }
     }, {
-    }, {
       "geoip": {
         "field": "ip_address",
         "database_file": "Anonymous.mmdb",
         "target_field": "anonymous",
-        "properties": ["country_iso_code"],
+        "properties": [
+          "country_iso_code"
+        ],
         "if": "ctx.ip_address =~ /[\\d]+\\.[\\d]+\\.[\\d]+\\.[\\d]+/"
       }
     }, /* {
