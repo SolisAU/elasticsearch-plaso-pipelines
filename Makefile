@@ -18,8 +18,8 @@ test:
 download-lists:
 	rm -f firehol_anonymous.txt
 	curl -o firehol_anonymous.txt https://iplists.firehol.org/files/firehol_anonymous.netset
-	rm -f torbulkexitlist.txt
-	curl -o torbulkexitlist.txt https://check.torproject.org/torbulkexitlist
+	#rm -f torbulkexitlist.txt
+	#curl -o torbulkexitlist.txt https://check.torproject.org/torbulkexitlist
 
 build-mmdb:
 	python3 -m pip install -r requirements.txt
@@ -27,4 +27,4 @@ build-mmdb:
 	python3 build_mmdb.py
 
 install-mmdb:
-	cp Anonymous.mmdb /etc/elasticsearch/ingest-geo/.
+	sudo cp Anonymous.mmdb /etc/elasticsearch/ingest-geo/.
