@@ -25,3 +25,6 @@ build-mmdb:
 	python3 -m pip install -r requirements.txt
 	rm -f Anonymous.mmdb
 	python3 build_mmdb.py
+
+install-mmdb:
+	cp Anonymous.mmdb /etc/elasticsearch/ingest-geo/.

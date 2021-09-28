@@ -1,0 +1,8 @@
+## Files to ignore
+
+# the compiled mmdb file
+Anonymous.mmdb
+# the source firehol file - go download it direct
+firehol_anonymous.txt
+# the source tor bulk exit list file - go download it direct
+torbulkexitlist.txt
