@@ -16,12 +16,12 @@ test:
 	curl -s -X POST -H content-type:application/json -d @test_data/test_documents.json  $(ES_SERVER)/_ingest/pipeline/plaso/_simulate?pretty | egrep "(relay|ip_address|country|city|username|logon_type|error)"
 
 download-lists:
-        [ -f firehol_anonymous.txt ] && mv firehol_anonymous.txt firehol_anonymous.old.txt
-        curl -o firehol_anonymous.txt https://iplists.firehol.org/files/firehol_anonymous.netset
-        [ -f torbulkexitlist.txt ] && mv torbulkexitlist.txt torbulkexitlist.old.txt
-        curl -o torbulkexitlist.txt https://check.torproject.org/torbulkexitlist
+	[ -f firehol_anonymous.txt ] && mv firehol_anonymous.txt firehol_anonymous.old.txt
+	curl -o firehol_anonymous.txt https://iplists.firehol.org/files/firehol_anonymous.netset
+	[ -f torbulkexitlist.txt ] && mv torbulkexitlist.txt torbulkexitlist.old.txt
+	curl -o torbulkexitlist.txt https://check.torproject.org/torbulkexitlist
 
 build-mmdb:
-        python3 -m pip install -r requirements.txt
-        [ -f Anonymous.mmdb ] && mv Anonymous.mmdb Anonymous.mmdb.old
-        python3 build_mmdb.py
+	python3 -m pip install -r requirements.txt
+	[ -f Anonymous.mmdb ] && mv Anonymous.mmdb Anonymous.mmdb.old
+	python3 build_mmdb.py
