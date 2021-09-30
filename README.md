@@ -41,7 +41,9 @@ Pull down the project and run `make install`. This will create a bunch of Elasti
 You then need to create an index template (ie: default) in ElasticSearch that pushes indexes with a certain name to use that pipeline.
 
 Mine looks like this:
-`{
+
+```
+{
   "order": 0,
   "index_patterns": [
     "o365-*",
@@ -57,7 +59,8 @@ Mine looks like this:
   },
   "mappings": {},
   "aliases": {}
-}`
+}
+```
 
 I use Cerebro to edit this, then all indexes I push from Plaso (via psort.py) are named plaso-casename-devicename (or similar), where the plaso- portion will match up with my index template and thus get processed by my ingestion pipelines.
 
@@ -73,7 +76,9 @@ The use of this file is currently commented out. Thanks to @blueteam0ps :)
 
 ## Change Log
 
-30.09.2021  Fixed documentation relating to the Anonymous.mmdb and how to properly install this
-28.09.2021  Updated Makefile to download the necessary files to build Anonymous.mmdb
-            Had to fix up a few things that were breaking that I just couldn't get my head around in the build process
-            You need to have 8GB minimum to build the file (make build-mmdb).
+* 30.09.2021  
+  * Fixed documentation relating to the Anonymous.mmdb and how to properly install this
+* 28.09.2021  
+  * Updated Makefile to download the necessary files to build Anonymous.mmdb
+  * Had to fix up a few things that were breaking that I just couldn't get my head around in the build process
+  * You need to have 8GB minimum to build the file (make build-mmdb)
