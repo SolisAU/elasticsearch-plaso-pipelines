@@ -63,8 +63,17 @@ I use Cerebro to edit this, then all indexes I push from Plaso (via psort.py) ar
 
 ## READ ME BEFORE PROCEEDING ##
 
-Currently `plaso-geoip.json` references a customised mmdb (MaxMind DataBase) file called `Anonymous.mmdb`. This file needs to be created and stored in /etc/elasticsearch/ingest-geoip/ on every node of your ElasticSearch cluster. I am yet to document how this all comes together and I would recommend commenting this section OUT of plaso-geoip.json so that your system doesn't break trying to look for a file that doesn't exist.
+Currently `plaso-geoip.json` references a customised mmdb (MaxMind DataBase) file called `Anonymous.mmdb`. This file needs to be created and stored in `/etc/elasticsearch/ingest-geoip/` on every node of your ElasticSearch cluster. You must do this *FIRST* before pushing the pipelines to Elastic (`make install`).
 
-If you want to build this first do `make build-lists` and it will download the relevant TOR Exit Node and VPN Service lists; then do `make build-mmdb`. Make sure the device you build the mmdb on has more than 8GB of memory or it will bomb out. You can then run `make install-mmdb` and it will copy the Anonymous.mmdb to /etc/elasticsearch/ingest-geoip/
+If you want to build this first do `make build-lists` and it will download the relevant TOR Exit Node and VPN Service lists; then do `make build-mmdb`. Make sure the device you build the mmdb on has more than 8GB of memory or it will bomb out. You can then run `make install-mmdb` and it will copy the `Anonymous.mmdb` to `/etc/elasticsearch/ingest-geoip/`. You then need to restart elasticsearch for it to pickup this file.
+
+If you don't want to use this, comment it out of `plaso-geoip.json`.
 
 The use of this file is currently commented out. Thanks to @blueteam0ps :)
+
+## Change Log
+
+30.09.2021  Fixed documentation relating to the Anonymous.mmdb and how to properly install this
+28.09.2021  Updated Makefile to download the necessary files to build Anonymous.mmdb
+            Had to fix up a few things that were breaking that I just couldn't get my head around in the build process
+            You need to have 8GB minimum to build the file (make build-mmdb).
