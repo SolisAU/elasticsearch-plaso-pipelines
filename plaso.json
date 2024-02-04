@@ -1,7 +1,12 @@
 {
   "description": "plaso pipelines",
   "processors": [
-   {
+    {
+      "lowercase": {
+        "field": "source_short",
+        "target_field": "parser"
+      }
+    }, {
       "pipeline": {
         "name": "iis-normalise",
         "ignore_failure": true
@@ -12,7 +17,7 @@
         "name": "plaso-winevt",
         "ignore_failure": true
       }
-    }, {
+    } , {
       "pipeline": {
         "name": "plaso-olecf",
         "ignore_failure": true
@@ -42,6 +47,6 @@
         "name": "plaso-evidenceof",
         "ignore_failure": true
       }
-    }
+    } 
   ]
 }

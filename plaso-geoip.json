@@ -59,7 +59,7 @@
         "properties": ["asn", "organization_name"],
         "if": "ctx.ip_address =~ /[\\d]+\\.[\\d]+\\.[\\d]+\\.[\\d]+/"
       }
-    }, {
+    }, /* {
       "geoip": {
         "field": "ip_address",
         "database_file": "Anonymous.mmdb",
@@ -69,38 +69,6 @@
         ],
         "if": "ctx.ip_address =~ /[\\d]+\\.[\\d]+\\.[\\d]+\\.[\\d]+/"
       }
-    }, /* {
-      "rename": {
-        "field": "anonymous.country_iso_code", "target_field": "relay", "ignore_missing": true
-      }
-    }, {
-      "rename": {
-        "field": "geoasn.organization_name", "target_field": "organisation", "ignore_missing": true
-      }
-    }, {
-      "rename": {
-        "field": "geoasn.asn", "target_field": "asn", "ignore_missing": true
-      }
-    }, {
-      "rename": {
-        "field": "geocity.continent_name", "target_field": "continent", "ignore_missing": true
-      }
-    }, {
-      "rename": {
-        "field": "geocity.country_name", "target_field": "country", "ignore_missing": true
-      }
-    }, {
-      "rename": {
-        "field": "geocity.city_name", "target_field": "city", "ignore_missing": true
-      }
-    }, {
-      "rename": {
-        "field": "geocity.region_name", "target_field": "region", "ignore_missing": true
-      }
-    }, {
-      "rename": {
-        "field": "geocity.location", "target_field": "location", "ignore_missing": true
-      }
     }, */ {
       "rename": {
         "field": "to_geocity.location", "target_field": "geocity.to_location", "ignore_missing": true
@@ -109,26 +77,14 @@
       "rename": {
         "field": "from_geocity.location", "target_field": "geocity.from_location", "ignore_missing": true
       }
-    }, /* {
-      "remove": {
-        "field": "anonymous", "ignore_missing": true
-      }
     }, {
-      "remove": {
-        "field": "geoasn", "ignore_missing": true
-      }
-    }, {
-      "remove": {
-        "field": "geocity", "ignore_missing": true
-      }
-    }, */ {
       "gsub": {
         "field": "organisation",
         "if": "ctx.organisation =~ /VPN/",
-	"pattern": ".*(VPN).*",
-	"target_field": "relay",
-	"replacement": "$1",
-	"ignore_missing": true
+	        "pattern": ".*(VPN).*",
+          "target_field": "relay",
+          "replacement": "$1",
+          "ignore_missing": true
       }
     }
 

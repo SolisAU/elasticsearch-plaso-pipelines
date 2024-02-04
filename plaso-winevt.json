@@ -5,23 +5,23 @@
       "gsub": {
         "field": "xml_string",
         "target_field": "xml",
-        "if": "ctx.parser == 'winevtx'",
+        "if": "ctx.parser == 'evt'",
         "pattern": ">\\n\\s*",
         "replacement": ">"
       }
     }, {
       "gsub": {
         "field": "xml",
-        "if": "ctx.parser == 'winevtx'",
-        "pattern": "\\r\\n\\t\\t\\t",
-        "replacement": "; "
+        "if": "ctx.parser == 'evt'",
+        "pattern": "[\\r\\n\\t]+",
+        "replacement": ""
       }
-    }, {
+    },  {
       "gsub": {
         "field": "xml",
         "target_field": "event_id",
         "if": "ctx.xml=~/<EventID/",
-        "pattern": ".*<(EventID)[^>]*>(.*)<.(EventID).*",
+        "pattern": ".*<(EventID)[^>]*>(\\d+)<.(EventID).*",
         "replacement": "$2"
       }
     }, {
@@ -53,24 +53,24 @@
         "field": "xml",
         "target_field": "target_username",
         "if": "ctx.xml=~/TargetUserName/",
-        "pattern": ".*<(Data.Name)=\"(TargetUserName)\">([^<]*)<.(Data)?(.|\\W)*",
+        "pattern": ".*<(Data.Name)=\"(TargetUserName)\">([^<]*)<.(Data).*",
         "replacement": "$3"
       }
-    },  {
+    }, {
       "gsub": {
         "field": "xml",
         "target_field": "subject_username",
         "if": "ctx.xml=~/SubjectUserName/",
-        "pattern": ".*<(Data.Name)=\"(SubjectUserName)\">([^<]*)<.(Data)?(.|\\W)*",
+        "pattern": ".*<(Data.Name)=\"(SubjectUserName)\">([^<]*)<.(Data).*",
         "replacement": "$3"
       }
-    },  /*{
+    },  {
       "rename": {
         "field": "ctx.target_user_name",
         "target_field": "username",
-        "if": "ctx.username == null && ctx.target_user_name != null && ctx.target_user_name != '-'"
+        "if": "ctx.username == null && ctx.target_user_name != null && ctx.target_user_name != null"
       }
-    }, */{
+    },  {
       "gsub": {
         "field": "xml",
         "target_field": "logon_type",
@@ -78,7 +78,7 @@
         "pattern": ".*<Data Name=\"LogonType\">(\\d*)<.*",
         "replacement": "$1"
       }
-    },  {
+    }, {
       "gsub": {
         "field": "xml",
         "target_field": "svc_img_path",
@@ -86,7 +86,7 @@
         "pattern": ".*<(Data.Name)=\"(ImagePath)\">([^<]*)<.(Data).*",
         "replacement": "$3"
       }
-    },{
+    }, {
       "gsub": {
         "field": "xml",
         "target_field": "svc_name",
@@ -94,7 +94,7 @@
         "pattern": ".*<(Data.Name)=\"(ServiceName)\">([^<]*)<.(Data).*",
         "replacement": "$3"
       }
-    },{
+    }, {
       "gsub": {
         "field": "xml",
         "target_field": "parent_procname",
@@ -102,7 +102,7 @@
         "pattern": ".*<(Data.Name)=\"(ParentProcessName)\">([^<]*)<.(Data).*",
         "replacement": "$3"
       }
-    },{
+    }, {
       "gsub": {
         "field": "xml",
         "target_field": "child_procname",
@@ -110,7 +110,7 @@
         "pattern": ".*<(Data.Name)=\"(NewProcessName)\">([^<]*)<.(Data).*",
         "replacement": "$3"
       }
-    },{
+    }, {
       "gsub": {
         "field": "xml",
         "target_field": "proc_cmdline",
@@ -118,7 +118,7 @@
         "pattern": ".*<(Data.Name)=\"(CommandLine)\">([^<]*)<.(Data).*",
         "replacement": "$3"
       }
-    },{
+    }, {
       "gsub": {
         "field": "xml",
         "target_field": "svc_filename",
@@ -126,7 +126,7 @@
         "pattern": ".*<(Data.Name)=\"(ServiceFileName)\">([^<]*)<.(Data).*",
         "replacement": "$3"
       }
-    },{
+    }, {
       "gsub": {
         "field": "xml",
         "target_field": "schtask_name",
@@ -134,7 +134,7 @@
         "pattern": ".*<(Data.Name)=\"(TaskName)\">([^<]*)<.(Data).*",
         "replacement": "$3"
       }
-    },{
+    }, {
       "gsub": {
         "field": "xml",
         "target_field": "schtask_cmd",
@@ -142,7 +142,7 @@
         "pattern": ".*<(Command)>([^<]*)<\/(Command).*",
         "replacement": "$2"
       }
-    },{
+    }, {
       "gsub": {
         "field": "xml",
         "target_field": "logon_process_name",
@@ -158,7 +158,7 @@
         "pattern": ".*<(Data.Name)=\"(CallerProcessName)\">([^<]*)<.(Data).*",
         "replacement": "$3"
       }
-    },  {
+    }, {
       "gsub": {
         "field": "xml",
         "target_field": "authentication_package_name",
@@ -166,7 +166,7 @@
         "pattern": ".*<(Data.Name)=\"(AuthenticationPackageName)\">([^<]*)<.(Data).*",
         "replacement": "$3"
       }
-    },  {
+    }, {
       "gsub": {
         "field": "xml",
         "target_field": "process_name",
@@ -174,7 +174,7 @@
         "pattern": ".*<(Data.Name)(=\"ProcessName\")>([^<]*)<.(Data).*",
         "replacement": "$3"
       }
-    },  {
+    }, {
       "gsub": {
         "field": "xml",
         "target_field": "audit_source_name",
@@ -182,7 +182,7 @@
         "pattern": ".*<(Data.Name)=\"(AuditSourceName)\">([^<]*)<.(Data).*",
         "replacement": "$3"
       }
-    },  {
+    }, {
       "gsub": {
         "field": "xml",
         "target_field": "event_provider",
@@ -205,7 +205,7 @@
         "pattern": ".*<(IPAddress|IpAddress|Address|Param1|Param3)>(\\d+\\.[^<]*)</(IPAddress|IpAddress|Address|Param1|Param3)>.*",
         "replacement": "$2"
       }
-    }, /*{
+    }, {
       "gsub": {
         "field": "xml",
         "target_field": "ip_address",
@@ -213,7 +213,7 @@
         "pattern": ".*<.+(IPAddress|IpAddress|Address)=\"([^\"]+)\".*",
         "replacement": "$2"
       }
-    }, */{
+    }, {
       "gsub": {
         "field": "xml",
         "target_field": "ip_address",
@@ -251,12 +251,12 @@
         "pattern": ".*<SessionID[^>]*>([^<]*)</SessionID>.*",
         "replacement": "$1"
       }
-    }, /*{
+    } , {
      "remove": {
         "field": "xml",
         "ignore_missing": true
       }
-    }, */{
+    }, {
       "remove": {
         "field": "strings_parsed",
         "ignore_missing": true
@@ -383,7 +383,7 @@
         "value": "A user has closed out an RDP connection",
         "if": "ctx.source_name=='Microsoft-Windows-TerminalServices-LocalSessionManager' && ctx.event_id=='9009'",
         "ignore_failure": true
-      }
+      } 
     }
   ]
 }
