@@ -59,7 +59,7 @@
         "properties": ["asn", "organization_name"],
         "if": "ctx.ip_address =~ /[\\d]+\\.[\\d]+\\.[\\d]+\\.[\\d]+/"
       }
-    }, /* {
+    },  {
       "geoip": {
         "field": "ip_address",
         "database_file": "Anonymous.mmdb",
@@ -69,7 +69,7 @@
         ],
         "if": "ctx.ip_address =~ /[\\d]+\\.[\\d]+\\.[\\d]+\\.[\\d]+/"
       }
-    }, */ {
+    },  {
       "rename": {
         "field": "to_geocity.location", "target_field": "geocity.to_location", "ignore_missing": true
       }
