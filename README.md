@@ -24,6 +24,8 @@ One major PITA when performing Windows forensics is that a lot of really great d
 
 `prefetch`, `olecf` and `winreg` have a number of artefacts that use different field names. If I'm trying to look at a bunch of artefacts that show File and Folder Opening, and I want to keep my columns nice and tidy so I can export the results to CSV and add to my report, I don't want to see the `path` (of the file or folder) in 4 different fields. ie: prefetch: `path_hints`; olecf: `local_path`, `network_path` and `shell_item_path`; winreg: `shell_item_path`, `value_name`.
 
+Since Plaso switched from supporting Elasticsearch to OpenSearch they seem to have dropped the `parser` field as a default output field. You need to ADD THIS BACK IN by adding `--additional-fields parser` to your psort.py command line as some of the enrichment currently relies upon this existing. We'll look at changing that in the future.
+
 ### Enrich Data ###
 
 Once we've pulled out additional fields and normalised the field names, we can start thinking about how to enrich the data with additional intelligence that helps us quickly exclude and include items that we know to be good and know to be bad. 
@@ -38,19 +40,16 @@ This is _really_ basic, but we've added an `evidence_of` field, which can be use
 
 Pull down the project and run `make install`. This will create a bunch of ElasticSearch pipelines, with the primary (starting) one being called `plaso`.
 
-You then need to create an index template (ie: default) in ElasticSearch that pushes indexes with a certain name to use that pipeline.
+You then need to create an index template (ie: plaso) in ElasticSearch that pushes indexes with a certain name to use that pipeline.
 
 Mine looks like this:
 
 ```
 {
-  "order": 0,
+  "order": 1,
   "index_patterns": [
-    "o365-*",
     "plaso-*",
     "dfir-*",
-    "iis-*",
-    "siem*"
   ],
   "settings": {
     "index": {
@@ -72,13 +71,21 @@ If you want to build this first do `make build-lists` and it will download the r
 
 If you don't want to use this, comment it out of `plaso-geoip.json`.
 
+You also need to ensure you've added `script.painless.regex.enabled: true` to `/etc/elasticsearch/elasticsearch.yml` or some of the RegEx's may not work. 
+
 The use of this file is currently commented out. Thanks to @blueteam0ps :)
 
 ## Change Log
 
+* 05.02.2024
+  * There's probably a tonne of changes that have happened between the last update and now. but we forgot to update this.
+  * Have fixed issues with values in the xml field (windows events) bleeding out into other fields by sanitising the xml field better.
+  * Fixed a few of the regex's for the winevent section.
+  * Worked out why Elasticsearch would just crash on ingestion with certain data - was a regex that died due to the xml field not being sanitised!
 * 30.09.2021  
   * Fixed documentation relating to the Anonymous.mmdb and how to properly install this
 * 28.09.2021  
   * Updated Makefile to download the necessary files to build Anonymous.mmdb
   * Had to fix up a few things that were breaking that I just couldn't get my head around in the build process
   * You need to have 8GB minimum to build the file (make build-mmdb)
+
