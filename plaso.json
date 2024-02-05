@@ -2,11 +2,6 @@
   "description": "plaso pipelines",
   "processors": [
     {
-      "lowercase": {
-        "field": "source_short",
-        "target_field": "parser"
-      }
-    }, {
       "pipeline": {
         "name": "iis-normalise",
         "ignore_failure": true

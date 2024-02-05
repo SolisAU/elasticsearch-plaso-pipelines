@@ -2,17 +2,22 @@
   "description": "plaso post-processing",
   "processors": [
     {
+      "drop": {
+        "description": "drop the duplicate event record to tidy things up",
+        "if": "ctx.parser == 'winevtx' && ctx.timestamp_desc == 'Content Modification Time'"
+      }
+    },  {
       "gsub": {
         "field": "xml_string",
         "target_field": "xml",
-        "if": "ctx.parser == 'evt'",
+        "if": "ctx.parser == 'winevtx'",
         "pattern": ">\\n\\s*",
         "replacement": ">"
       }
     }, {
       "gsub": {
         "field": "xml",
-        "if": "ctx.parser == 'evt'",
+        "if": "ctx.parser == 'winevtx'",
         "pattern": "[\\r\\n\\t]+",
         "replacement": ""
       }
