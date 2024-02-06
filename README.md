@@ -24,7 +24,7 @@ One major PITA when performing Windows forensics is that a lot of really great d
 
 `prefetch`, `olecf` and `winreg` have a number of artefacts that use different field names. If I'm trying to look at a bunch of artefacts that show File and Folder Opening, and I want to keep my columns nice and tidy so I can export the results to CSV and add to my report, I don't want to see the `path` (of the file or folder) in 4 different fields. ie: prefetch: `path_hints`; olecf: `local_path`, `network_path` and `shell_item_path`; winreg: `shell_item_path`, `value_name`.
 
-Since Plaso switched from supporting Elasticsearch to OpenSearch they seem to have dropped the `parser` field as a default output field. You need to ADD THIS BACK IN by adding `--additional-fields parser` to your psort.py command line as some of the enrichment currently relies upon this existing. We'll look at changing that in the future.
+Since Plaso switched from supporting Elasticsearch to OpenSearch they seem to have dropped the `parser` field as a default output field. See below in installation on how to add this back in for now.
 
 ### Enrich Data ###
 
@@ -60,6 +60,26 @@ Mine looks like this:
   "aliases": {}
 }
 ```
+
+As of Plaso 20230724 the 'parser' event attribute has been removed from the OpenSearch output, as has the 'filename' attribute. Whilst we are re-working the processors to use other attributes, you can modify the Plaso code to add these back in by editing `/usr/lib/python3/dist-packages/plaso/output/shared_opensearch.py' and changing the section about `_FIELD_FORMAT_CALLBACKS` to the following:
+
+```
+  _FIELD_FORMAT_CALLBACKS = {
+      'datetime': '_FormatDateTime',
+      'display_name': '_FormatDisplayName',
+      'filename': '_FormatFilename',
+      'inode': '_FormatInode',
+      'message': '_FormatMessage',
+      'parser': '_FormatParser',
+      'source_long': '_FormatSource',
+      'source_short': '_FormatSourceShort',
+      'tag': '_FormatTag',
+      'timestamp': '_FormatTimestamp',
+      'timestamp_desc': '_FormatTimestampDescription',
+      'yara_match': '_FormatYaraMatch'}
+```
+
+And adding `--additional-fields filename,parser` to your psort commandline.
 
 I use Cerebro to edit this, then all indexes I push from Plaso (via psort.py) are named plaso-casename-devicename (or similar), where the plaso- portion will match up with my index template and thus get processed by my ingestion pipelines.
 
