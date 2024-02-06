@@ -61,6 +61,8 @@ Mine looks like this:
 }
 ```
 
+I use Cerebro to edit this, then all indexes I push from Plaso (via psort.py) are named plaso-casename-devicename (or similar), where the plaso- portion will match up with my index template and thus get processed by my ingestion pipelines.
+
 As of Plaso 20230724 the 'parser' event attribute has been removed from the OpenSearch output, as has the 'filename' attribute. Whilst we are re-working the processors to use other attributes, you can modify the Plaso code to add these back in by editing `/usr/lib/python3/dist-packages/plaso/output/shared_opensearch.py` and changing the section about `_FIELD_FORMAT_CALLBACKS` to the following:
 
 ```
@@ -80,8 +82,6 @@ As of Plaso 20230724 the 'parser' event attribute has been removed from the Open
 ```
 
 And adding `--additional-fields filename,parser` to your psort commandline.
-
-I use Cerebro to edit this, then all indexes I push from Plaso (via psort.py) are named plaso-casename-devicename (or similar), where the plaso- portion will match up with my index template and thus get processed by my ingestion pipelines.
 
 ## READ ME BEFORE PROCEEDING ##
 
