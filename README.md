@@ -61,7 +61,7 @@ Mine looks like this:
 }
 ```
 
-As of Plaso 20230724 the 'parser' event attribute has been removed from the OpenSearch output, as has the 'filename' attribute. Whilst we are re-working the processors to use other attributes, you can modify the Plaso code to add these back in by editing `/usr/lib/python3/dist-packages/plaso/output/shared_opensearch.py' and changing the section about `_FIELD_FORMAT_CALLBACKS` to the following:
+As of Plaso 20230724 the 'parser' event attribute has been removed from the OpenSearch output, as has the 'filename' attribute. Whilst we are re-working the processors to use other attributes, you can modify the Plaso code to add these back in by editing `/usr/lib/python3/dist-packages/plaso/output/shared_opensearch.py` and changing the section about `_FIELD_FORMAT_CALLBACKS` to the following:
 
 ```
   _FIELD_FORMAT_CALLBACKS = {
